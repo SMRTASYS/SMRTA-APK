@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_obsidian_deep">#050814</color>
+    <color name="bg_slate_dark">#090D16</color>
+    <color name="surface_glass">#0E1525</color>
+    <color name="accent_cyan">#00F2FE</color>
+    <color name="accent_blue">#4FACFE</color>
+    <color name="accent_emerald">#10B981</color>
+    <color name="accent_emerald_soft">#34D399</color>
+    <color name="accent_gold">#D4AF37</color>
+    <color name="accent_gold_bright">#F3D06B</color>
+    <color name="accent_amber">#F59E0B</color>
+    <color name="text_primary">#F8FAFC</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="text_muted">#64748B</color>
+    <color name="border_subtle">#26334D</color>
+</resources>

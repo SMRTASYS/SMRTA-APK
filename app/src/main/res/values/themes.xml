@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SmrtaPortal.Base" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/accent_emerald</item>
+        <item name="colorSecondary">@color/accent_gold</item>
+        <item name="android:windowBackground">@color/bg_obsidian_deep</item>
+        <item name="android:statusBarColor">@color/bg_obsidian_deep</item>
+        <item name="android:navigationBarColor">@color/bg_obsidian_deep</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="Theme.SmrtaPortal.Splash" parent="Theme.SmrtaPortal.Base">
+        <item name="android:windowAnimationStyle">@style/WindowAnim.Smrta</item>
+    </style>
+
+    <style name="Theme.SmrtaPortal.Main" parent="Theme.SmrtaPortal.Base">
+        <item name="android:windowAnimationStyle">@style/WindowAnim.Smrta</item>
+    </style>
+
+    <style name="WindowAnim.Smrta" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
+    </style>
+</resources>

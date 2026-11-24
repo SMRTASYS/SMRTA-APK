@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splashRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_obsidian_deep"
+    tools:context=".SplashActivity">
+
+    <View
+        android:id="@+id/glowAura"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:alpha="0.0"
+        android:background="@drawable/bg_splash_glow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/emblemContainer"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:alpha="0.0"
+        android:background="@drawable/bg_emblem_frame"
+        android:elevation="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvBrandCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:id="@+id/ivEmblem"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/brand_code"
+            android:src="@drawable/ic_smrta_emblem" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvBrandCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:alpha="0.0"
+        android:fontFamily="sans-serif-black"
+        android:letterSpacing="0.22"
+        android:text="@string/brand_code"
+        android:textColor="@color/accent_gold_bright"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvPortalName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emblemContainer" />
+
+    <TextView
+        android:id="@+id/tvPortalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:alpha="0.0"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.14"
+        android:text="@string/brand_portal"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvSystemName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBrandCode" />
+
+    <TextView
+        android:id="@+id/tvSystemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:alpha="0.0"
+        android:fontFamily="sans-serif"
+        android:letterSpacing="0.18"
+        android:text="@string/brand_system"
+        android:textColor="@color/accent_emerald_soft"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPortalName" />
+
+    <ProgressBar
+        android:id="@+id/splashProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="160dp"
+        android:layout_height="3dp"
+        android:layout_marginBottom="48dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/accent_gold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
