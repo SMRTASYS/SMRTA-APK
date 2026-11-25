@@ -20,21 +20,46 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          accept-android-sdk-licenses: true
-
-      - name: Check Android SDK & Ensure gradlew executable
+      - name: Prepare Android SDK & Gradle Wrapper
         run: |
-          echo "[DEBUG] ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}"
-          ls -la "${ANDROID_HOME:-/usr/local/lib/android/sdk}" || true
+          set -e
+          SDK_DIR="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          export ANDROID_HOME="$SDK_DIR"
+          export ANDROID_SDK_ROOT="$SDK_DIR"
+          echo "[DEBUG] SDK_DIR=$SDK_DIR"
+          ls -la "$SDK_DIR" || true
+
+          SDKMANAGER=""
+          for candidate in \
+            "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" \
+            "$SDK_DIR/cmdline-tools/16.0/bin/sdkmanager" \
+            "$SDK_DIR/cmdline-tools/11.0/bin/sdkmanager" \
+            "$SDK_DIR/tools/bin/sdkmanager"
+          do
+            if [ -x "$candidate" ]; then
+              SDKMANAGER="$candidate"
+              break
+            fi
+          done
+
+          if [ -z "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$SDK_DIR" -name sdkmanager -type f -executable 2>/dev/null | head -n 1 || true)"
+          fi
+
+          echo "[DEBUG] SDKMANAGER=${SDKMANAGER:-NOT_FOUND}"
+          if [ -n "$SDKMANAGER" ]; then
+            yes | "$SDKMANAGER" --sdk_root="$SDK_DIR" --licenses >/dev/null 2>&1 || true
+            "$SDKMANAGER" --sdk_root="$SDK_DIR" "platform-tools" "platforms;android-34" "build-tools;34.0.0" || \
+            "$SDKMANAGER" --sdk_root="$SDK_DIR" "platform-tools" "platforms;android-34" || true
+          fi
+
           if [ -f "./gradlew" ]; then
             chmod +x ./gradlew
           else
             gradle wrapper --gradle-version 8.7 --distribution-type bin
             chmod +x ./gradlew
           fi
+          echo "[DEBUG] Persiapan SDK dan gradlew selesai."
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
