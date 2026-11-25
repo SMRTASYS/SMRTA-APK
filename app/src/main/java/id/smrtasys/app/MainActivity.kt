@@ -278,7 +278,7 @@ class MainActivity : AppCompatActivity() {
         settings.mediaPlaybackRequiresUserGesture = true
 
         if (WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_ENABLE)) {
-            WebViewFeature.setSafeBrowsingEnabled(settings, true)
+            WebSettingsCompat.setSafeBrowsingEnabled(settings, true)
         }
 
         webView.webViewClient = PortalWebViewClient()
