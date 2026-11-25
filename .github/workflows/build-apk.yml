@@ -24,12 +24,11 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           accept-android-sdk-licenses: true
-          packages: |
-            platform-tools
-            platforms;android-34
 
-      - name: Ensure gradlew executable
+      - name: Check Android SDK & Ensure gradlew executable
         run: |
+          echo "[DEBUG] ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          ls -la "${ANDROID_HOME:-/usr/local/lib/android/sdk}" || true
           if [ -f "./gradlew" ]; then
             chmod +x ./gradlew
           else
