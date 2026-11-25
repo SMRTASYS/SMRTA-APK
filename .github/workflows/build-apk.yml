@@ -20,14 +20,14 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
 
-      - name: Prepare Android SDK & Gradle Wrapper
+      - name: Prepare Android SDK & Gradle 8.9 Wrapper
         run: |
           set -e
           SDK_DIR="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
           export ANDROID_HOME="$SDK_DIR"
           export ANDROID_SDK_ROOT="$SDK_DIR"
           echo "[DEBUG] SDK_DIR=$SDK_DIR"
-          ls -la "$SDK_DIR" || true
+          java -version
 
           SDKMANAGER=""
           for candidate in \
@@ -49,17 +49,18 @@ jobs:
           echo "[DEBUG] SDKMANAGER=${SDKMANAGER:-NOT_FOUND}"
           if [ -n "$SDKMANAGER" ]; then
             yes | "$SDKMANAGER" --sdk_root="$SDK_DIR" --licenses >/dev/null 2>&1 || true
-            "$SDKMANAGER" --sdk_root="$SDK_DIR" "platform-tools" "platforms;android-34" "build-tools;34.0.0" || \
-            "$SDKMANAGER" --sdk_root="$SDK_DIR" "platform-tools" "platforms;android-34" || true
+            "$SDKMANAGER" --sdk_root="$SDK_DIR" "platform-tools" "platforms;android-35" "build-tools;35.0.0" || \
+            "$SDKMANAGER" --sdk_root="$SDK_DIR" "platform-tools" "platforms;android-34" "build-tools;34.0.0" || true
           fi
 
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-          else
-            gradle wrapper --gradle-version 8.7 --distribution-type bin
-            chmod +x ./gradlew
+          if command -v gradle >/dev/null 2>&1; then
+            gradle wrapper --gradle-version 8.9 --distribution-type bin
+          elif [ -f "./gradlew" ]; then
+            sed -i 's/gradle-[0-9.]*-bin\.zip/gradle-8.9-bin.zip/g' gradle/wrapper/gradle-wrapper.properties || true
           fi
-          echo "[DEBUG] Persiapan SDK dan gradlew selesai."
+          chmod +x ./gradlew
+          echo "[DEBUG] Wrapper siap:"
+          grep "distributionUrl" gradle/wrapper/gradle-wrapper.properties || true
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
